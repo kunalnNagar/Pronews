@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro News</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">   
+</head>
+<body>
+    <header>
+        <h1 class='new'><span class="text-info">PRO</span><b>NEWS</b></h1>
+        <div id="datetime" class="ms-4" style="font-size: 20px; font-family: monospace;"></div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item mx-3">
+                    <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
+                  </li>
+                  <li class="nav-item me-3">
+                    <a class="nav-link" href="#">About</a>
+                  </li>
+                  <li class="nav-item me-3">
+                    <a class="nav-link" href="#">contact</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url "home" %}">Breaking News</a></li>
+                      <li><a class="dropdown-item" href="{% url "world" %}">World</a></li>
+                      <li><a class="dropdown-item" href="{% url "india" %}">India News</a></li>
+                      <li><a class="dropdown-item" href="{% url "bollywood" %}">Bollywood News</a></li>
+                      <li><a class="dropdown-item" href="{% url "sports" %}">Sports News</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <form class="d-flex" method="get" action="{% url "search" %}">
+                  <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% if request.user.is_authenticated %}
+                <p class="text-light mx-3 fw-bold">{{request.user}}</p>
+                <a href="{% url "signout" %}" class="btn btn-outline-primary me-3">Sign Out</a>
+                {% else %}
+                <a href="{% url "signup" %}" class="btn btn-outline-primary m-2">Sign Up</a>
+                <a href="{% url "login" %}" class="btn btn-outline-primary me-3">Sign In</a>
+                {% endif %}
+              </div>
+            </div>
+          </nav>
+    </header>
+
+    {% block contant %}{% endblock contant %}
+
+    <div class="c">
+        <footer class="py-3 bg-dark " data-bs-theme="dark">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          </ul>
+          <p class="text-center text-muted">© 2025, <a href="https://www.linkedin.com/in/kunal-nagar-web">Kunal Nagar</a></p>
+        </footer>
+      </div>
+
+
+      <script>
+        function updateDateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+            document.getElementById('datetime').textContent = date + ' ' + time;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime(); // Run once on load
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+</body>
+</html>

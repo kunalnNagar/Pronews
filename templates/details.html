@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block contant %}
+
+<div class="container my-5 pt-4">
+    <div class="row">
+        <div class="col-lg-9">
+            {% for i in data %}
+            
+            <div class="detail">
+                <h2>{{i.title}}</h2>
+                <img src="/media/{{i.image}}" class="img-fluid w-100 my-2" alt="">
+                <small style="color:#00b1cf;"><b>{{i.category}}</b></small>
+               <small style="color:grey;">. {{i.publish}}</small>
+                <p class="mt-2">{{i.desc}}</p>
+            </div>
+            
+            {% endfor %}
+              <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <strong>Comments</strong>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for comment in com %}
+            <li class="list-group-item">
+                <strong>{{ comment.name }}</strong> - {{ comment.text }}
+                <br><small class="text-muted">{{ comment.create|date:"F j, Y, g:i a" }}</small><br>
+            </li>
+            {% empty %}
+            <li class="list-group-item">No comments yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">Add a Comment</div>
+        <div class="card-body">
+            {% if user.is_authenticated %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.text.label_tag }} {{ form.text|add_class:"form-control" }}
+                </div>
+                <button type="submit" class="btn btn-success">Post</button>
+            </form>
+            {% else %}
+            <p>You must <a href="{% url 'login' %}">login</a> to comment.</p>
+            {% endif %}
+        </div>
+    </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="top5">
+                <h2 class="alert alert-info">TOP NEWS</h2>
+                {% for k in top5 %}
+                
+                <a href="{% url "details" k.id %}">
+                    <div class="d-card">
+                        <img src="/media/{{k.image}}" alt="" class="img-fluid w-100">
+                        <h6>{{k.title | truncatechars:55}}</h6>
+                    </div>
+                </a>
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contant %}

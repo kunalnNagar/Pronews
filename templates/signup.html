@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block contant %}
+<div class="signup">
+    <div class="container">
+    <div class="row py-5">
+        <div class="col-lg-4 offset-lg-4 signin1">
+            <div class="form text-center">
+                <h2 class="text-light">Sign Up</h2>
+                <form class="mb-2" novalidate method="post">
+                {% csrf_token %}
+                {% for i in form %}
+                {% if i.errors %}
+                <p>{{i}}</p>
+                {{i.errors}}
+                {% else %}
+                <p>{{i}}</p>
+                {% endif %}
+                {% endfor %}
+                <button class="btn btn-primary" type="submit">SIGNUP</button>
+            </form>
+            <a href="{% url "login" %}">You alredy Have any Account click here</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock contant %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block contant %}
+
+<div class="container">
+    <h1>SPORTS NEWS</h1>
+    <div class="row">
+        {% for i in sports %}
+        <div class="col-lg-4">
+            <div class="india-text">
+                <img src="/media/{{i.image}}" class='img-fluid w-100' alt="">
+                <small style="color:#00b1cf;"><b>{{i.category}}</b></small>
+                <small style="color:grey;">. {{i.publish}}</small>
+                <h5>{{i.title | truncatechars:50}}</h5>
+                <p>{{i.desc | truncatechars:85}}</p>
+                <a href="{% url "details" i.id %}" class="btn btn-dark text-light">READ MORE</a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock contant %}
